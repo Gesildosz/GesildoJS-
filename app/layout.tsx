@@ -1,25 +1,31 @@
 import type React from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google" // Ou a fonte que você estiver usando
 import "./globals.css"
-import { Inter } from "next/font/google"
-import localFont from "next/font/local" // Importa localFont
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 
-// Define a fonte JBS localmente
-const jbsFont = localFont({
-  src: "../public/fonts/jbs-font.woff2", // Caminho para o seu arquivo de fonte JBS
-  variable: "--font-jbs", // Define uma variável CSS para a fonte
-  display: "swap", // Garante que a fonte seja exibida rapidamente
-})
+const inter = Inter({ subsets: ["latin"] }) // Exemplo de configuração de fonte, se houver
 
-const inter = Inter({ subsets: ["latin"] })
+export const metadata: Metadata = {
+  title: "JBS RH App",
+  description: "Sistema de Gerenciamento de RH para Colaboradores JBS",
+    generator: 'v0.dev'
+}
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
-    <html lang="en" className={`${inter.className} ${jbsFont.variable}`}>
-      <body>{children}</body>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          {children}
+          <Toaster />
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
-
-export const metadata = {
-      generator: 'v0.dev'
-    };
