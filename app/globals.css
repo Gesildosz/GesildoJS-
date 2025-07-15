@@ -1,0 +1,44 @@
+/* Adicione estas regras ao final do seu arquivo app/globals.css */
+
+@keyframes shine-sweep {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  10% {
+    /* Começa a aparecer e mover */
+    left: -50%;
+    opacity: 1;
+  }
+  50% {
+    /* Ponto médio do brilho */
+    left: 50%;
+    opacity: 1;
+  }
+  90% {
+    /* Fim do brilho, começa a desaparecer */
+    left: 100%;
+    opacity: 0;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.logo-shine-container {
+  position: relative;
+  overflow: hidden; /* Garante que o brilho não saia do container */
+}
+
+.logo-shine-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%; /* Começa completamente fora da tela à esquerda */
+  width: 100%; /* Largura do efeito de brilho */
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent); /* Gradiente de luz */
+  animation: shine-sweep 5s forwards; /* Duração de 5 segundos, mantém o estado final */
+  animation-delay: 0.5s; /* Pequeno atraso antes de iniciar */
+}
